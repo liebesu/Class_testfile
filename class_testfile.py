@@ -6,7 +6,9 @@ def get_path():
         whole_path=os.path.normcase(os.path.join(file_path,file))
         
 def clamscan(file):
-    pass
+    fr=os.popen('clamscan '+file)
+    clr=fr.read()
+    
 def jsscan(file):
     pass
 def md5scan(file):
