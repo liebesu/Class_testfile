@@ -16,7 +16,7 @@ def ass(signature_name):
             print e
             pass
 def db_check():
-    global cursor
+    
     db = MySQLdb.connect(host='localhost', db='sandbox_signatures', user='root', passwd='polydata', port=3306,
                          charset='utf8')
     cursor = db.cursor()
@@ -28,7 +28,18 @@ def db_check():
         cursor.execute(select_sql)
         result1=cursor.fetchall()
         if not result1[0][0]:
-            ass(result[0])
+            a=open(path).readlines()
+            for line in a:
+                
+                m=line.split('    ')
+                print result,m[1]
+                if result[0] in m[1]:
+                    print result[0],m[0]
+                    update_sql='update signatures set file="%s" where name="%s"'% (m[0],result[0])
+                    cursor.execute(update_sql)  
+                    break
+                        
+                
     db.commit()    
     cursor.close()
     db.close()
